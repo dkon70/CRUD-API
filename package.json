@@ -7,9 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write *.ts",
-    "lint": "eslint *.ts --fix",
+    "lint": "eslint . --fix",
     "build": "tsc",
-    "nodemon": "nodemon --watch main.ts"
+    "nodemon": "nodemon"
   },
   "repository": {
     "type": "git",
