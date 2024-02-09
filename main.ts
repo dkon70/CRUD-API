@@ -1,16 +1,27 @@
 import http from 'http'
 import notFound from './src/utils/notFound'
 import getUsers from './src/methods/getUsers'
+import getUser from './src/methods/getUser'
 
 function main(port: number) {
   const server = http.createServer((req, res) => {
-    switch (req.url) {
-      case '/api/users':
-        getUsers(req, res)
-        break
-      default:
+    const URL = req.url
+    const method = req.method
+    if (URL === '/api/users' && method === 'GET') {
+      getUsers(req, res)
+    } else if (URL?.startsWith('/api/users/')) {
+      if (URL.split('/').length !== 4) {
         notFound(res)
-        break
+      } else {
+        const userID = URL!.split('/').pop()
+        if (userID === '') {
+          getUsers(req, res)
+        } else {
+          getUser(res, String(userID))
+        }
+      }
+    } else {
+      notFound(res)
     }
   })
 

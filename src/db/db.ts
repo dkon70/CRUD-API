@@ -1,16 +1,11 @@
-type DataType = {
-  id: string
-  username: string
-  age: number
-  hobbies: string[]
-}
+import { DataType } from '../types/types'
 
 const data: DataType[] = [
   {
-    id: '1',
+    id: '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed',
     username: 'admin',
     age: 25,
-    hobbies: ['nodejs'],
+    hobbies: ['nodejs', 'react'],
   },
 ]
 
