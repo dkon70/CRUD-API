@@ -27,7 +27,12 @@ function addUser(req: IncomingMessage, res: ServerResponse) {
           typeof receivedDataObj.hobbies === 'object'
         ) {
           res.writeHead(201, { 'Content-type': 'text/plain' })
-          data.push({ id: id, ...receivedDataObj })
+          data.push({
+            id: id,
+            username: receivedDataObj.username,
+            age: receivedDataObj.age,
+            hobbies: receivedDataObj.hobbies,
+          })
           res.end('User added')
         } else {
           res.writeHead(400, { 'Content-type': 'text/plain' })

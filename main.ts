@@ -3,6 +3,7 @@ import notFound from './src/utils/notFound'
 import getUsers from './src/methods/getUsers'
 import getUser from './src/methods/getUser'
 import addUser from './src/methods/addUser'
+import updateUser from './src/methods/updateUser'
 
 function main(port: number) {
   const server = http.createServer((req, res) => {
@@ -16,16 +17,28 @@ function main(port: number) {
         case 'POST':
           addUser(req, res)
           break
+        default:
+          notFound(res)
+          break
       }
     } else if (URL?.startsWith('/api/users/')) {
       if (URL.split('/').length !== 4) {
-        notFound(res)
+        if (method === 'GET') {
+          notFound(res)
+        }
       } else {
         const userID = URL!.split('/').pop()
         if (userID === '') {
-          getUsers(req, res)
+          if (method === 'GET') {
+            getUsers(req, res)
+          }
         } else {
-          getUser(res, String(userID))
+          if (method === 'GET') {
+            getUser(res, String(userID))
+          }
+          if (method === 'PUT') {
+            updateUser(req, res, String(userID))
+          }
         }
       }
     } else {
