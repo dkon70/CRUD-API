@@ -4,6 +4,7 @@ import getUsers from './src/methods/getUsers'
 import getUser from './src/methods/getUser'
 import addUser from './src/methods/addUser'
 import updateUser from './src/methods/updateUser'
+import deleteUser from './src/methods/deleteUser'
 
 function main(port: number) {
   const server = http.createServer((req, res) => {
@@ -31,6 +32,9 @@ function main(port: number) {
         if (userID === '') {
           if (method === 'GET') {
             getUsers(req, res)
+          } else {
+            res.writeHead(400, { 'Content-type': 'text/plain' })
+            res.end('Incorrect request method')
           }
         } else {
           if (method === 'GET') {
@@ -38,6 +42,9 @@ function main(port: number) {
           }
           if (method === 'PUT') {
             updateUser(req, res, String(userID))
+          }
+          if (method === 'DELETE') {
+            deleteUser(res, String(userID))
           }
         }
       }
