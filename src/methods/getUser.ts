@@ -1,6 +1,6 @@
 import { ServerResponse } from 'http'
-import data from '../db/db'
-import getUserById from '../utils/getUserById'
+import data from '../db/db.js'
+import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
 
 function getUser(res: ServerResponse, id: string) {

@@ -1,7 +1,7 @@
 import { ServerResponse } from 'http'
-import getUserById from '../utils/getUserById'
+import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
-import data from '../db/db'
+import data from '../db/db.js'
 
 function deleteUser(res: ServerResponse, id: string) {
   const userObj = getUserById(data, id)

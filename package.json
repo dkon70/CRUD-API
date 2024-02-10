@@ -9,7 +9,8 @@
     "format": "prettier --write *.ts",
     "lint": "eslint . --fix",
     "build": "tsc",
-    "nodemon": "nodemon"
+    "start:dev": "nodemon",
+    "start:prod": "tsc && node ./bundle/main.js"
   },
   "repository": {
     "type": "git",

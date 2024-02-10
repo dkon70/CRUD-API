@@ -1,5 +1,5 @@
 import { ServerResponse, IncomingMessage } from 'http'
-import data from '../db/db'
+import data from '../db/db.js'
 
 function getUsers(req: IncomingMessage, res: ServerResponse) {
   if (req.method === 'GET') {

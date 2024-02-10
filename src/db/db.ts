@@ -1,4 +1,4 @@
-import { DataType } from '../types/types'
+import { DataType } from '../types/types.js'
 
 const data: DataType[] = [
   {

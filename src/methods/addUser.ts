@@ -1,5 +1,5 @@
 import { ServerResponse, IncomingMessage } from 'http'
-import data from '../db/db'
+import data from '../db/db.js'
 import { v4 as uuidv4 } from 'uuid'
 
 function addUser(req: IncomingMessage, res: ServerResponse) {

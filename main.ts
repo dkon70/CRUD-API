@@ -1,10 +1,10 @@
 import http from 'http'
-import notFound from './src/utils/notFound'
-import getUsers from './src/methods/getUsers'
-import getUser from './src/methods/getUser'
-import addUser from './src/methods/addUser'
-import updateUser from './src/methods/updateUser'
-import deleteUser from './src/methods/deleteUser'
+import notFound from './src/utils/notFound.js'
+import getUsers from './src/methods/getUsers.js'
+import getUser from './src/methods/getUser.js'
+import addUser from './src/methods/addUser.js'
+import updateUser from './src/methods/updateUser.js'
+import deleteUser from './src/methods/deleteUser.js'
 
 function main(port: number) {
   const server = http.createServer((req, res) => {
