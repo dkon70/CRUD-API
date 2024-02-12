@@ -1,8 +1,9 @@
 import { ServerResponse, IncomingMessage } from 'http'
-import data from '../db/db.js'
+// import data from '../db/db.js'
 import { v4 as uuidv4 } from 'uuid'
+import { DataType } from '../types/types'
 
-function addUser(req: IncomingMessage, res: ServerResponse) {
+function addUser(req: IncomingMessage, res: ServerResponse, data: DataType[]) {
   const id = uuidv4()
   let recievedData = ''
 
@@ -20,6 +21,7 @@ function addUser(req: IncomingMessage, res: ServerResponse) {
       ) {
         res.writeHead(400, { 'Content-type': 'text/plain' })
         res.end('Incorrect data')
+        return
       } else {
         if (
           typeof receivedDataObj.username === 'string' &&
@@ -34,14 +36,17 @@ function addUser(req: IncomingMessage, res: ServerResponse) {
             hobbies: receivedDataObj.hobbies,
           })
           res.end('User added')
+          return
         } else {
           res.writeHead(400, { 'Content-type': 'text/plain' })
           res.end('Incorrect data')
+          return
         }
       }
     } catch (err) {
       res.writeHead(400, { 'Content-type': 'text/plain' })
       res.end('Request body is not valid JSON')
+      return
     }
   })
 }

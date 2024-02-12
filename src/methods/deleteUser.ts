@@ -1,9 +1,10 @@
 import { ServerResponse } from 'http'
 import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
-import data from '../db/db.js'
+import { DataType } from '../types/types.js'
+// import data from '../db/db.js'
 
-function deleteUser(res: ServerResponse, id: string) {
+function deleteUser(res: ServerResponse, id: string, data: DataType[]) {
   const userObj = getUserById(data, id)
   if (!uuidValidate(id)) {
     res.writeHead(400, { 'Content-type': 'text/plain' })

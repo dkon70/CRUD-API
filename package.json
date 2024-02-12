@@ -10,7 +10,8 @@
     "lint": "eslint . --fix",
     "build": "tsc",
     "start:dev": "nodemon",
-    "start:prod": "tsc && node ./bundle/main.js"
+    "start:prod": "tsc && node ./bundle/main.js",
+    "start:multi": "nodemon --multi"
   },
   "repository": {
     "type": "git",

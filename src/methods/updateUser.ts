@@ -1,9 +1,15 @@
 import { ServerResponse, IncomingMessage } from 'http'
-import data from '../db/db.js'
+// import data from '../db/db.js'
 import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
+import { DataType } from '../types/types.js'
 
-function updateUser(req: IncomingMessage, res: ServerResponse, id: string) {
+function updateUser(
+  req: IncomingMessage,
+  res: ServerResponse,
+  id: string,
+  data: DataType[]
+) {
   let receivedData = ''
   const userObj = getUserById(data, id)
   if (!uuidValidate(id)) {

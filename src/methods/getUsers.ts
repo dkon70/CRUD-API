@@ -1,7 +1,8 @@
 import { ServerResponse, IncomingMessage } from 'http'
-import data from '../db/db.js'
+// import data from '../db/db.js'
+import { DataType } from '../types/types.js'
 
-function getUsers(req: IncomingMessage, res: ServerResponse) {
+function getUsers(req: IncomingMessage, res: ServerResponse, data: DataType[]) {
   if (req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify(data))

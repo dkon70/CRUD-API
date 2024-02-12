@@ -1,9 +1,10 @@
 import { ServerResponse } from 'http'
-import data from '../db/db.js'
+// import data from '../db/db.js'
 import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
+import { DataType } from '../types/types.js'
 
-function getUser(res: ServerResponse, id: string) {
+function getUser(res: ServerResponse, id: string, data: DataType[]) {
   if (!uuidValidate(id)) {
     res.writeHead(400, { 'Content-type': 'text/plain' })
     res.end('Incorrect ID')
