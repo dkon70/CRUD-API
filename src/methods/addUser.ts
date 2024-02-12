@@ -2,6 +2,7 @@ import { ServerResponse, IncomingMessage } from 'http'
 // import data from '../db/db.js'
 import { v4 as uuidv4 } from 'uuid'
 import { DataType } from '../types/types'
+import cluster from 'cluster'
 
 function addUser(req: IncomingMessage, res: ServerResponse, data: DataType[]) {
   const id = uuidv4()
@@ -35,7 +36,7 @@ function addUser(req: IncomingMessage, res: ServerResponse, data: DataType[]) {
             age: receivedDataObj.age,
             hobbies: receivedDataObj.hobbies,
           })
-          if (process) {
+          if (cluster.isWorker) {
             process.send!(data)
           }
           res.end('User added')

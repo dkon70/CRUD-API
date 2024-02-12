@@ -3,6 +3,7 @@ import { ServerResponse } from 'http'
 import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
 import { DataType } from '../types/types.js'
+import cluster from 'cluster'
 
 function getUser(res: ServerResponse, id: string, data: DataType[]) {
   if (!uuidValidate(id)) {
@@ -12,6 +13,9 @@ function getUser(res: ServerResponse, id: string, data: DataType[]) {
   }
   const userObj = getUserById(data, id)
   if (userObj) {
+    if (cluster.isWorker) {
+      process.send!(data)
+    }
     res.writeHead(200, { 'Content-type': 'application/json' })
     res.end(JSON.stringify(userObj))
   } else {

@@ -3,6 +3,7 @@ import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
 import { DataType } from '../types/types.js'
 // import data from '../db/db.js'
+import cluster from 'cluster'
 
 function deleteUser(res: ServerResponse, id: string, data: DataType[]) {
   const userObj = getUserById(data, id)
@@ -18,7 +19,7 @@ function deleteUser(res: ServerResponse, id: string, data: DataType[]) {
   }
   data.splice(data.indexOf(userObj), 1)
   res.writeHead(204)
-  if (process) {
+  if (cluster.isWorker) {
     process.send!(data)
   }
   res.end()

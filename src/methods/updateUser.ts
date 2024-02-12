@@ -3,6 +3,7 @@ import { ServerResponse, IncomingMessage } from 'http'
 import getUserById from '../utils/getUserById.js'
 import { validate as uuidValidate } from 'uuid'
 import { DataType } from '../types/types.js'
+import cluster from 'cluster'
 
 function updateUser(
   req: IncomingMessage,
@@ -49,7 +50,7 @@ function updateUser(
         userObj.hobbies = receivedDataObj.hobbies
           ? receivedDataObj.hobbies
           : userObj.hobbies
-        if (process) {
+        if (cluster.isWorker) {
           process.send!(data)
         }
         res.writeHead(200, { 'Content-type': 'text/plain' })
