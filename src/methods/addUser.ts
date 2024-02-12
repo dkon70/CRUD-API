@@ -35,6 +35,9 @@ function addUser(req: IncomingMessage, res: ServerResponse, data: DataType[]) {
             age: receivedDataObj.age,
             hobbies: receivedDataObj.hobbies,
           })
+          if (process) {
+            process.send!(data)
+          }
           res.end('User added')
           return
         } else {

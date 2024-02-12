@@ -18,6 +18,9 @@ function deleteUser(res: ServerResponse, id: string, data: DataType[]) {
   }
   data.splice(data.indexOf(userObj), 1)
   res.writeHead(204)
+  if (process) {
+    process.send!(data)
+  }
   res.end()
 }
 

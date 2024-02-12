@@ -11,6 +11,9 @@ import { availableParallelism } from 'os'
 import { DataType } from './src/types/types.js'
 
 function main(port: number, db: DataType[]) {
+  process.on('message', function (message: DataType[]) {
+    db = message
+  })
   const server = http.createServer((req, res) => {
     const URL = req.url
     const method = req.method
@@ -74,7 +77,7 @@ for (let i = 1; i < cpus; i++) {
 
 if (process.argv.pop() === '--multi') {
   if (cluster.isPrimary) {
-    const dataBase: DataType[] = []
+    let dataBase: DataType[] = []
     const balancer = http.createServer((req, res) => {
       const targetPort = targetPorts[currentPortIndex]
       currentPortIndex = (currentPortIndex + 1) % targetPorts.length
@@ -87,6 +90,9 @@ if (process.argv.pop() === '--multi') {
       }
 
       const proxyReq = http.request(options, (proxyRes) => {
+        for (const worker of Object.values(cluster.workers!)) {
+          worker!.send(dataBase)
+        }
         res.writeHead(proxyRes.statusCode!, proxyRes.headers)
         proxyRes.pipe(res, { end: true })
       })
@@ -98,7 +104,10 @@ if (process.argv.pop() === '--multi') {
     })
     for (let i = 1; i < cpus; i++) {
       const worker = cluster.fork({ PORT: Number(process.env.PORT) + i })
-      worker.send({ type: 'database', data: dataBase })
+      worker.on('message', function (message: DataType[]) {
+        dataBase = message
+      })
+      worker.send(dataBase)
     }
 
     cluster.on('message', (worker, message) => {

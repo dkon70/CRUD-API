@@ -49,6 +49,9 @@ function updateUser(
         userObj.hobbies = receivedDataObj.hobbies
           ? receivedDataObj.hobbies
           : userObj.hobbies
+        if (process) {
+          process.send!(data)
+        }
         res.writeHead(200, { 'Content-type': 'text/plain' })
         res.end('User data updated')
       }
