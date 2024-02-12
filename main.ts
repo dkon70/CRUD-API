@@ -5,6 +5,7 @@ import getUser from './src/methods/getUser.js'
 import addUser from './src/methods/addUser.js'
 import updateUser from './src/methods/updateUser.js'
 import deleteUser from './src/methods/deleteUser.js'
+import 'dotenv/config'
 
 function main(port: number) {
   const server = http.createServer((req, res) => {
@@ -56,4 +57,4 @@ function main(port: number) {
   server.listen(port)
 }
 
-main(3000)
+main(Number(process.env.PORT));
